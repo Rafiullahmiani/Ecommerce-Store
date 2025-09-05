@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+
 function App() {
   const [products, setProducts] = useState([]);
   const [form, setForm] = useState({
@@ -13,8 +14,7 @@ function App() {
 
   // load products
   useEffect(() => {
-    axios
-      .get("http://localhost:5050/Products")
+    axios.get("https://ecommerce-store-backend-production-2c67.up.railway.app/Products")
       .then((res) => setProducts(res.data))
       .catch((err) => console.error("Fetch error:", err));
   }, []);
@@ -34,7 +34,7 @@ function App() {
 
     if (editingId !== null) {
       // update
-      await axios.put(`http://localhost:5050/Products/${editingId}`, form);
+      await axios.put(`https://ecommerce-store-backend-production-2c67.up.railway.app/Products/${editingId}`, form);
 
       setProducts(
         products.map((p) => (p.id === editingId ? { ...p, ...form } : p))
@@ -42,7 +42,7 @@ function App() {
       setEditingId(null);
     } else {
       // create
-      const res = await axios.post("http://localhost:5050/Products", form);
+      const res = await axios.post("https://ecommerce-store-backend-production-2c67.up.railway.app/Products", form);
       setProducts([...products, res.data]);
     }
 
@@ -53,7 +53,7 @@ function App() {
   // Delete
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5050/Products/${id}`);
+      await axios.delete(`https://ecommerce-store-backend-production-2c67.up.railway.app/Products/${id}`);
       setProducts(products.filter((p) => p.id !== id));
     } catch (err) {
       console.error("Delete error:", err);
